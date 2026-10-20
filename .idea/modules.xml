@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Alg03/Alg03.iml" filepath="$PROJECT_DIR$/Alg03/Alg03.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Alg04/Alg04.iml" filepath="$PROJECT_DIR$/Alg04/Alg04.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Alg05/Alg05.iml" filepath="$PROJECT_DIR$/Alg05/Alg05.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Alg06/Alg06.iml" filepath="$PROJECT_DIR$/Alg06/Alg06.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Alg07/Alg07.iml" filepath="$PROJECT_DIR$/Alg07/Alg07.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Materia-de-Algoritmos-FATEC-.iml" filepath="$PROJECT_DIR$/.idea/Materia-de-Algoritmos-FATEC-.iml" />
+    </modules>
+  </component>
+</project>
