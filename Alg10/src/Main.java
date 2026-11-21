@@ -11,7 +11,7 @@ public static void main() {
                 
                 1 - Rede de lojas
                 2 - Mapa de vagas
-                3 - Empresa
+                3 - Depósitos de Produtos
                 4 - Competição
                 5 - Cinema
                 0 - Sair
@@ -31,7 +31,7 @@ public static void main() {
                 estacionamento();
                 break;
             case 3:
-
+                depositos();
                 break;
             case 4:
 
@@ -194,4 +194,65 @@ private static void estacionamento() {
                 System.out.println("Opção inválida");
         }
     } while (opcao != 0);
+}
+
+private static void depositos(){
+    int[][] produtos = new int[10][4];
+    int[] estoqueProduto = new int[10];
+    int[] estoqueDeposito = new int[4];
+
+    int estoqueGeral;
+
+    System.out.println("\n-- Depósitos --\n");
+
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 4; j++) {
+            System.out.printf("Produto %d - depósito %d: ", (i + 1), (j + 1));
+            produtos[i][j] = scanner.nextInt();
+
+            estoqueDeposito[j] += produtos[i][j];
+            estoqueProduto[i] += produtos[i][j];
+        }
+        System.out.println();
+    }
+
+    System.out.println("\n== Estoque ==");
+    System.out.printf("| %-10s | %-10s | %-10s | %-10s | %-10s | %-10s |%n",
+            "Produto", "Depósito 1", "Depósito 2", "Depósito 3", "Depósito 4", "Total"
+    );
+
+    for (int i = 0; i < 10; i++) {
+        System.out.printf("| %-10d | %-10d | %-10d | %-10d | %-10d | %-10d |%n",
+                i + 1, produtos[i][0], produtos[i][1], produtos[i][2], produtos[i][3], estoqueProduto[i]
+        );
+    }
+
+    estoqueGeral = estoqueDeposito[0] + estoqueDeposito[1] + estoqueDeposito[2] + estoqueDeposito[3];
+
+    System.out.println();
+    System.out.printf("| %-10s | %-10d | %-10d | %-10d | %-10d | %-10d |%n",
+            "Total", estoqueDeposito[0], estoqueDeposito[1], estoqueDeposito[2], estoqueDeposito[3], estoqueGeral
+    );
+
+    int indiceProduto = 0;
+    for (int i = 1; i < 10; i++) {
+        if (estoqueProduto[i] > estoqueProduto[indiceProduto]) {
+            indiceProduto = i;
+        }
+    }
+
+    System.out.printf("%nProduto em maior quantia no estoque: Produto %d (%d unidades)%n",
+            indiceProduto + 1, estoqueProduto[indiceProduto]
+    );
+
+    int indiceDeposito = 0;
+    for (int j = 1; j < 4; j++) {
+        if (estoqueDeposito[j] > estoqueDeposito[indiceDeposito]) {
+            indiceDeposito = j;
+        }
+    }
+
+    System.out.printf("Depósito com maior volume de estoque: Depósito %d (%d unidades)%n",
+            indiceDeposito + 1, estoqueDeposito[indiceDeposito]
+    );
 }
