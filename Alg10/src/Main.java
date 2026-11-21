@@ -10,7 +10,7 @@ public static void main() {
                 \nDigite o número indicado para realizar uma das opções a seguir:
                 
                 1 - Rede de lojas
-                2 - Estacionamento
+                2 - Mapa de vagas
                 3 - Empresa
                 4 - Competição
                 5 - Cinema
@@ -28,7 +28,7 @@ public static void main() {
                 redeLojas();
                 break;
             case 2:
-
+                estacionamento();
                 break;
             case 3:
 
@@ -104,4 +104,94 @@ private static void redeLojas() {
     System.out.printf("Dia com maior volume de vendas: Dia %d (%d unidades)%n",
             indiceDia + 1, totalVendasDia[indiceDia]
     );
+}
+
+private static void estacionamento() {
+    int[][] vagas = new int[5][10];
+    Random random = new Random();
+
+    byte vagasLivres = 0;
+    byte vagasOcupadas = 0;
+
+    System.out.println("\n-- Estacionamento --");
+
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 10; j++) {
+            vagas[i][j] = random.nextInt(2);
+
+            if (vagas[i][j] == 1){
+                vagasOcupadas++;
+            } else {
+                vagasLivres++;
+            }
+        }
+    }
+
+    byte opcao;
+    do {
+        System.out.print("""
+                \nDigite o número indicado para realizar uma das opções a seguir:
+                
+                1 - Exibir mapa de vagas
+                2 - Ver total de vagas livres
+                3 - Ver total de vagas ocupadas
+                4 - Alterar o estado de uma vaga
+                0 - Sair
+                """);
+        System.out.print("\nDigite a opção: ");
+        opcao = scanner.nextByte();
+        scanner.nextLine();
+
+        switch (opcao) {
+            case 0:
+                System.out.print("Saindo...");
+                break;
+            case 1:
+                int vagasOcupadasFileira = 0;
+                int indiceFileira = 0;
+
+                System.out.println("\nX = Ocupada; _ = Livre\n");
+                System.out.println("    1 2 3 4 5 6 7 8 9 10");
+
+                for (int i = 0; i < 5; i++) {
+                    int soma = 0;
+                    System.out.printf("F%d  ", i + 1);
+
+                    for (int j = 0; j < 10; j++) {
+                        System.out.print(vagas[i][j] == 1 ? "X " : "_ ");
+                        soma += vagas[i][j];
+                    }
+                    if (soma > vagasOcupadasFileira){
+                        vagasOcupadasFileira = soma;
+                        indiceFileira = i+1;
+                    }
+                    System.out.println();
+                }
+
+                System.out.printf("\nFileira mais ocupada: %dª (%d vagas ocupadas\n)", indiceFileira, vagasOcupadasFileira);
+                break;
+            case 2:
+                System.out.printf("Existem ao todo %d vagas livres.\n", vagasLivres);
+                break;
+            case 3:
+                System.out.printf("Existem ao todo %d vagas ocupadas.\n", vagasOcupadas);
+                break;
+            case 4:
+                System.out.print("Digite a fileira (1 a 5): ");
+                byte fileira = (byte) (scanner.nextByte() - 1);
+                System.out.print("Digite a vaga (1 a 10): ");
+                byte vaga = (byte) (scanner.nextByte() - 1);
+
+                if (fileira < 0 || fileira > 4 || vaga < 0 || vaga > 9) {
+                    System.out.println("Posição inválida!");
+                    return;
+                }
+
+                vagas[fileira][vaga] = 1 - vagas[fileira][vaga];
+                System.out.println("Estado da vaga alterado.");
+                break;
+            default:
+                System.out.println("Opção inválida");
+        }
+    } while (opcao != 0);
 }
