@@ -12,7 +12,7 @@ public static void main() {
                 1 - Rede de lojas
                 2 - Mapa de vagas
                 3 - Depósitos de Produtos
-                4 - Competição
+                4 - Competição de Salto
                 5 - Cinema
                 0 - Sair
                 """);
@@ -34,7 +34,7 @@ public static void main() {
                 depositos();
                 break;
             case 4:
-
+                competicao();
                 break;
             case 5:
 
@@ -255,4 +255,66 @@ private static void depositos(){
     System.out.printf("Depósito com maior volume de estoque: Depósito %d (%d unidades)%n",
             indiceDeposito + 1, estoqueDeposito[indiceDeposito]
     );
+}
+
+private static void competicao(){
+    double[][] atlelas = new double[10][3];
+    double[] melhoresSaltos = new double[10];
+    double[] mediaSaltos = new double[10];
+
+    double somaSaltos;
+    System.out.println("\n-- Competição de Salto --");
+
+    for (int i = 0; i < 10; i++) {
+        somaSaltos = 0;
+        System.out.printf("\n== Digite as distâncias dos saltos do %dº atleta ==\n", i+1);
+
+        for (int j = 0; j < 3; j++) {
+            System.out.printf("%dº salto: ", j+1);
+            atlelas[i][j] = scanner.nextDouble();
+
+            somaSaltos += atlelas[i][j];
+
+            if (atlelas[i][j] > melhoresSaltos[i]){
+                melhoresSaltos[i] = atlelas[i][j];
+            }
+        }
+        mediaSaltos[i] = somaSaltos/3;
+    }
+
+    System.out.println("\n== Tabela ==");
+    System.out.printf("| %-10s | %-10s | %-10s | %-10s | %-10s |%n",
+            "Atleta", "1º Salto", "2º Salto", "3º Salto", "Média"
+    );
+
+    for (int i = 0; i < 10; i++) {
+        System.out.printf("| %-10d | %-10.2f | %-10.2f | %-10.2f | %-10.2f |%n",
+                i + 1, atlelas[i][0], atlelas[i][1], atlelas[i][2], mediaSaltos[i]
+        );
+    }
+
+    int[] ordem = new int[10];
+    for (int i = 0; i < 10; i++) {
+        ordem[i] = i;
+    }
+
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9 - i; j++) {
+            if (melhoresSaltos[ordem[j]] < melhoresSaltos[ordem[j + 1]]) {
+                int temp = ordem[j];
+                ordem[j] = ordem[j + 1];
+                ordem[j + 1] = temp;
+            }
+        }
+    }
+    System.out.println("\n== Ranking da Competição ==\n");
+    System.out.printf("| %-10s | %-10s | %-12s |%n", "Posição", "Atleta", "Melhor salto");
+
+    for (int pos = 0; pos < 10; pos++) {
+        int atleta = ordem[pos];
+        System.out.printf("| %-10d | %-10s | %-12.2f |%n",
+                pos + 1, "Atleta " + (atleta + 1), melhoresSaltos[atleta]
+        );
+    }
+    System.out.println();
 }
